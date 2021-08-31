@@ -1,9 +1,8 @@
 import pygame
 from queue import PriorityQueue
-from colors import Colors
+from params import Colors,Screen
 
-SCREEN_SIZE = 800
-WINDOW = pygame.display.set_mode((SCREEN_SIZE,SCREEN_SIZE))
+WINDOW = pygame.display.set_mode((Screen.SCREEN_SIZE,Screen.SCREEN_SIZE))
 pygame.display.set_caption("screen")
 
 
@@ -181,8 +180,7 @@ def get_click_pos(position,rows,width):
     return row,col
 
 def main(window,width):
-    ROWS = 25
-    grid = make_grid(ROWS, width)
+    grid = make_grid(Screen.ROWS, width)
     
     start = None
     end=None
@@ -191,7 +189,7 @@ def main(window,width):
     started = False
 
     while run:
-        draw(window, grid, ROWS, width)
+        draw(window, grid, Screen.ROWS, width)
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 run = False
@@ -200,7 +198,7 @@ def main(window,width):
             if pygame.mouse.get_pressed()[0]:
                 #left click
                 position = pygame.mouse.get_pos()
-                row,col = get_click_pos(position, ROWS, width)
+                row,col = get_click_pos(position, Screen.ROWS, width)
                 node = grid[row][col]
                 if not start and node!=end:
                     start = node
@@ -214,7 +212,7 @@ def main(window,width):
 
             elif pygame.mouse.get_pressed()[2]:
                 position = pygame.mouse.get_pos()
-                row,col = get_click_pos(position, ROWS, width)
+                row,col = get_click_pos(position, Screen.ROWS, width)
                 node = grid[row][col]
                 node.reset()
                 if node==start:
@@ -227,12 +225,12 @@ def main(window,width):
                     for row in grid:
                         for node in row:
                             node.update_neighbours(grid)
-                    algorithm(lambda: draw(window,grid,ROWS,width),grid,start,end)
+                    algorithm(lambda: draw(window,grid,Screen.ROWS,width),grid,start,end)
                 if event.key == pygame.K_ESCAPE:
                     start = None
                     end = None
-                    grid=make_grid(ROWS, width)
+                    grid=make_grid(Screen.ROWS, width)
 
     pygame.quit()
 
-main(WINDOW,SCREEN_SIZE)
+main(WINDOW,Screen.SCREEN_SIZE)
