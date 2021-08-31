@@ -7,3 +7,9 @@ class Colors:
     WHITE_DEFAULT=(255,255,255)
     GREY=(192,192,192)
     TURQUOISE_END=(0,255,255)
+
+class Screen:
+    SCREEN_SIZE = 800
+    ROWS = 25
+
+
